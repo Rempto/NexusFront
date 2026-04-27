@@ -2,11 +2,24 @@ export const useAuthStore = defineStore(
   "auth",
   () => {
     const token = ref<string | null>(null);
+    const user = ref<any | null>(null);
+    const validTo = ref<string | null>(null);
 
-    const setToken = (t: string) => (token.value = t);
-    const clearToken = () => (token.value = null);
+    const setAuth = (data: { token: string; user: any; validTo: string }) => {
+      token.value = data.token;
+      user.value = data.user;
+      validTo.value = data.validTo;
+    };
 
-    return { token, setToken, clearToken };
+    const clearAuth = () => {
+      token.value = null;
+      user.value = null;
+      validTo.value = null;
+    };
+
+    const isAuthenticated = computed(() => !!token.value);
+
+    return { token, user, validTo, setAuth, clearAuth, isAuthenticated };
   },
   { persist: true },
 );

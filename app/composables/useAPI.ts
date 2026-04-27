@@ -11,8 +11,6 @@ export const useAPI = $fetch.create({
 
     options.baseURL = config.public.baseURL;
 
-    console.log("OPTIONSSSSS", options);
-
     if (store.token) {
       options.headers = new Headers(options.headers as HeadersInit);
       options.headers.set("Authorization", `Bearer ${store.token}`);

@@ -1,105 +1,206 @@
 <!-- eslint-disable -->
 <template>
   <div>
-    <UPageHero
-      title="Nuxt Starter Template"
-      description="A production-ready starter template powered by Nuxt UI. Build beautiful, accessible, and performant applications in minutes, not hours."
-      :links="[
-        {
-          label: 'Get started',
-          to: 'https://ui.nuxt.com/docs/getting-started/installation/nuxt',
-          target: '_blank',
-          trailingIcon: 'i-lucide-arrow-right',
-          size: 'xl',
-        },
-        {
-          label: 'Use this template',
-          to: 'https://github.com/nuxt-ui-templates/starter',
-          target: '_blank',
-          icon: 'i-simple-icons-github',
-          size: 'xl',
-          color: 'neutral',
+    <PagesHeader>
+      <template #default>
+        <UModal v-model="dialog" style="min-width: 390px">
+          <UButton @click="openDialog">Criar tarefa</UButton>
+          <template #header> Criar nova tarefa </template>
+          <template #body>
+            <UForm
+              :validate="validate"
+              :state="state"
+              class="space-y-4"
+              @submit="onSubmit"
+            >
+              <UFormField
+                label="Título"
+                name="Título"
+                class="flex flex-col w-full"
+              >
+                <UInput v-model="form.title" class="w-full" />
+              </UFormField>
+              <UFormField
+                label="Prazo"
+                name="Prazo"
+                class="flex flex-col w-full"
+              >
+                <UInputDate
+                  v-model="form.prazo"
+                  icon="i-lucide-calendar"
+                  class="w-full"
+                  locale="pt-BR"
+                />
+              </UFormField>
+              <div class="flex flex-col md:flex-row gap-4">
+                <UFormField
+                  label="Prioridade"
+                  name="Prioridade"
+                  class="flex flex-col w-full"
+                >
+                  <USelect
+                    v-model="form.priority"
+                    :items="priorities"
+                    value-key="value"
+                    class="w-full"
+                  />
+                </UFormField>
+                <UFormField
+                  label="Status"
+                  name="Status"
+                  class="flex flex-col w-full"
+                >
+                  <USelect
+                    v-model="form.status"
+                    :items="items"
+                    value-key="value"
+                    class="w-full"
+                  />
+                </UFormField>
+              </div>
+              <UFormField
+                label="Projetos"
+                name="Projetos"
+                class="flex flex-col w-full"
+              >
+                <USelect
+                  v-model="form.project"
+                  :items="projects"
+                  value-key="id"
+                  label-key="name"
+                  class="w-full"
+                />
+              </UFormField>
 
-          variant: 'subtle',
-        },
-      ]"
-    />
+              <UFormField label="Descrição" name="Descrição" class="w-full">
+                <UTextarea v-model="form.description" class="w-full" />
+              </UFormField>
+            </UForm>
+          </template>
+          <template #footer>
+            <div class="flex justify-center w-full gap-4">
+              <UButton
+                @click="dialog = false"
+                variant="outline"
+                style="width: 150px; cursor: pointer"
+                class="d-flex justify-center"
+                >Cancelar</UButton
+              >
+              <UButton
+                @click="saveTask"
+                variant="solid"
+                style="width: 150px; cursor: pointer"
+                class="d-flex justify-center"
+                >Salvar</UButton
+              >
+            </div>
+          </template>
+        </UModal>
+      </template>
+    </PagesHeader>
 
-    <UPageSection
-      id="features"
-      title="Everything you need to build modern Nuxt apps"
-      description="Start with a solid foundation. This template includes all the essentials for building production-ready applications with Nuxt UI's powerful component system."
-      :features="[
-        {
-          icon: 'i-lucide-rocket',
-          title: 'Production-ready from day one',
-          description:
-            'Pre-configured with TypeScript, ESLint, Tailwind CSS, and all the best practices. Focus on building features, not setting up tooling.',
-        },
-        {
-          icon: 'i-lucide-palette',
-          title: 'Beautiful by default',
-          description:
-            'Leveraging Nuxt UI\'s design system with automatic dark mode, consistent spacing, and polished components that look great out of the box.',
-        },
-        {
-          icon: 'i-lucide-zap',
-          title: 'Lightning fast',
-          description:
-            'Optimized for performance with SSR/SSG support, automatic code splitting, and edge-ready deployment. Your users will love the speed.',
-        },
-        {
-          icon: 'i-lucide-blocks',
-          title: '100+ components included',
-          description:
-            'Access Nuxt UI\'s comprehensive component library. From forms to navigation, everything is accessible, responsive, and customizable.',
-        },
-        {
-          icon: 'i-lucide-code-2',
-          title: 'Developer experience first',
-          description:
-            'Auto-imports, hot module replacement, and TypeScript support. Write less boilerplate and ship more features.',
-        },
-        {
-          icon: 'i-lucide-shield-check',
-          title: 'Built for scale',
-          description:
-            'Enterprise-ready architecture with proper error handling, SEO optimization, and security best practices built-in.',
-        },
-      ]"
-    />
+    <div class="p-6">
+      <h1 class="text-2xl font-bold mb-6">Kanban</h1>
 
-    <UPageSection>
-      <UPageCTA
-        title="Ready to build your next Nuxt app?"
-        description="Join thousands of developers building with Nuxt and Nuxt UI. Get this template and start shipping today."
-        variant="subtle"
-        :links="[
-          {
-            label: 'Start building',
-            to: 'https://ui.nuxt.com/docs/getting-started/installation/nuxt',
-            target: '_blank',
-            trailingIcon: 'i-lucide-arrow-right',
-            color: 'neutral',
-          },
-          {
-            label: 'View on GitHub',
-            to: 'https://github.com/nuxt-ui-templates/starter',
-            target: '_blank',
-            icon: 'i-simple-icons-github',
-            color: 'neutral',
-            variant: 'outline',
-          },
-        ]"
-      />
-    </UPageSection>
-
-    <UPageSection>
-      <UPageCTA
-        title="Ready to build your next Nuxt app?"
-        description="Join thousands of developers building with Nuxt and Nuxt UI. Get this template and start shipping today."
-        variant="subtle"
-      ></UPageCTA>
-    </UPageSection>
+      <div class="flex gap-4 overflow-x-auto" style="padding: 1px">
+        <div
+          v-for="column in columns"
+          :key="column.id"
+          class="w-80 flex-shrink-0"
+        >
+          <!-- Coluna -->
+          <UCard>
+            <template #header>
+              <div class="font-semibold">
+                {{ column.name }}
+              </div>
+            </template>
+            <draggable
+              v-model="column.cards"
+              group="kanban"
+              item-key="id"
+              class="flex flex-col gap-3"
+              style="min-height: 100px"
+            >
+              <template #item="{ element }">
+                <UCard
+                  class="cursor-move p-3 rounded shadow mb-2"
+                  variant="soft"
+                >
+                  {{ element.title }}
+                </UCard>
+              </template>
+            </draggable>
+          </UCard>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
+<script setup>
+import { ref } from "vue";
+import draggable from "vuedraggable";
+//#region data
+const dialog = ref(false);
+
+const form = ref({});
+
+const items = ref([
+  { label: "Backlog", value: 0 },
+  { label: "Todo", value: 1 },
+  { label: "In Progress", value: 2 },
+  { label: "Done", value: 3 },
+]);
+
+const priorities = ref([
+  { label: "Baixo", value: 0 },
+  { label: "Médio", value: 1 },
+  { label: "Alto", value: 2 },
+  { label: "Crítico", value: 3 },
+]);
+
+const projects = ref([]);
+
+const columns = ref([
+  {
+    id: 1,
+    name: "A Fazer",
+    cards: [
+      { id: 1, title: "Criar layout" },
+      { id: 2, title: "Definir API" },
+    ],
+  },
+  {
+    id: 2,
+    name: "Em andamento",
+    cards: [{ id: 3, title: "Tela de login" }],
+  },
+  {
+    id: 3,
+    name: "Concluído",
+    cards: [{ id: 4, title: "Setup do projeto" }],
+  },
+]);
+
+//#endregion
+
+//#region Call Services
+getProjects();
+//#endregion
+
+//#region method
+
+function openDialog() {
+  dialog.value = true;
+}
+
+async function getProjects() {
+  await useAPI("project/get-all-reduced", {
+    method: "GET",
+  }).then((response) => {
+    console.log(response);
+    projects.value = response.content;
+  });
+}
+//#endregion
+</script>

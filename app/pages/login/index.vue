@@ -46,10 +46,16 @@
 
 <script setup>
 import * as v from "valibot";
-
+import { useAuthStore } from "../../../stores/index";
 definePageMeta({
   layout: "empty",
 });
+
+//#region Composable
+const router = useRouter();
+const auth = useAuthStore();
+//#endregion
+
 // #region Form Validation
 const schema = v.object({
   email: v.pipe(
@@ -71,18 +77,22 @@ const state = reactive({
 });
 
 async function login(event) {
-  console.log("Login com:", event.data);
-  // chamar sua API aqui
-
-  const { data, error } = await useAPI("Auth/login", {
-    method: "POST",
-    body: { ...event.data },
-  })
-    .then((response) => {
-      console.log(response);
-    })
-    .catch((error) => {
-      console.log(error.message);
+  try {
+    const response = await useAPI("Auth/login", {
+      method: "POST",
+      body: event.data,
     });
+
+    console.log("response", response);
+    auth.setAuth({
+      token: response.content.token,
+      user: response.content.user,
+      validTo: response.content.validTo,
+    });
+
+    router.push("/");
+  } catch (error) {
+    console.log("Erro:", error.message);
+  }
 }
 </script>
