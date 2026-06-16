@@ -49,19 +49,24 @@ const openSide = ref(true);
 
 const items = ref([
   {
-    label: "Home",
-    icon: "i-lucide-house",
+    label: "Tarefas",
+    icon: "i-mdi-view-dashboard-variant",
     active: true,
   },
   {
-    label: "Inbox",
-    icon: "i-lucide-inbox",
-    badge: "4",
+    label: "Projetos",
+    icon: "i-mdi-stack-overflow",
+    active: false,
   },
-  {
-    label: "Contacts",
-    icon: "i-lucide-users",
-  },
+  // {
+  //   label: "Inbox",
+  //   icon: "i-lucide-inbox",
+  //   badge: "4",
+  // },
+  // {
+  //   label: "Contacts",
+  //   icon: "i-lucide-users",
+  // },
 ]);
 
 const bus = useSidebarBus("layoutAction");

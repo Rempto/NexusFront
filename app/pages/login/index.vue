@@ -15,24 +15,25 @@
             <UInput
               v-model="state.email"
               type="email"
-              placeholder="Enter your email"
+              placeholder="Insira seu e-mail"
               class="w-full"
             />
           </UFormField>
-          <UFormField label="Password" name="password">
+          <UFormField label="Senha" name="password">
             <UInput
               v-model="state.password"
               type="password"
-              placeholder="Enter your password"
+              placeholder="Insira sua senha"
               class="w-full"
             />
           </UFormField>
+
           <div class="flex items-center justify-between">
             <NuxtLink
               to="/register"
               class="text-sm text-primary hover:underline"
             >
-              Don't have an account? Register
+              Não tem uma conta? Registre-se
             </NuxtLink>
           </div>
           <div>
@@ -74,6 +75,9 @@ const schema = v.object({
 const state = reactive({
   email: "",
   password: "",
+  firstName: "",
+  lastName: "",
+  confirmPassword: "",
 });
 
 async function login(event) {
@@ -83,7 +87,6 @@ async function login(event) {
       body: event.data,
     });
 
-    console.log("response", response);
     auth.setAuth({
       token: response.content.token,
       user: response.content.user,
@@ -91,8 +94,6 @@ async function login(event) {
     });
 
     router.push("/");
-  } catch (error) {
-    console.log("Erro:", error.message);
-  }
+  } catch (error) {}
 }
 </script>

@@ -11,6 +11,9 @@ importers:
       '@iconify-json/lucide':
         specifier: ^1.2.102
         version: 1.2.102
+      '@iconify-json/mdi':
+        specifier: ^1.2.3
+        version: 1.2.3
       '@iconify-json/simple-icons':
         specifier: ^1.2.78
         version: 1.2.78
@@ -40,7 +43,7 @@ importers:
         version: 3.0.4(typescript@6.0.2)(vue@3.5.31(typescript@6.0.2))
       pinia-plugin-persistedstate:
         specifier: ^4.7.1
-        version: 4.7.1(@nuxt/kit@4.4.2(magicast@0.5.2))(@pinia/nuxt@0.11.3(magicast@0.5.2)(pinia@3.0.4(typescript@6.0.2)(vue@3.5.31(typescript@6.0.2))))(pinia@3.0.4(typescript@6.0.2)(vue@3.5.31(typescript@6.0.2)))
+        version: 4.7.1(@nuxt/kit@3.21.2(magicast@0.5.2))(@pinia/nuxt@0.11.3(magicast@0.5.2)(pinia@3.0.4(typescript@6.0.2)(vue@3.5.31(typescript@6.0.2))))(pinia@3.0.4(typescript@6.0.2)(vue@3.5.31(typescript@6.0.2)))
       tailwindcss:
         specifier: ^4.2.2
         version: 4.2.2
@@ -452,6 +455,9 @@ packages:
 
   '@iconify-json/lucide@1.2.102':
     resolution: {integrity: sha512-Dm3EEqu5NrmzyDMB2U1+8yroEj2/dB9V4KlH0m/szwwF/ofSf0cPaGTZqkd1aExXjCor+vU53ttRMCGuXf+/cg==}
+
+  '@iconify-json/mdi@1.2.3':
+    resolution: {integrity: sha512-O3cLwbDOK7NNDf2ihaQOH5F9JglnulNDFV7WprU2dSoZu3h3cWH//h74uQAB87brHmvFVxIOkuBX2sZSzYhScg==}
 
   '@iconify-json/simple-icons@1.2.78':
     resolution: {integrity: sha512-I3lkNp0Qu7q2iZWkdcf/I2hqGhzK6qxdILh9T7XqowQrnpmG/BayDsiCf6PktDoWlW0U971xA5g+panm+NFrfQ==}
@@ -4938,6 +4944,10 @@ snapshots:
     dependencies:
       '@iconify/types': 2.0.0
 
+  '@iconify-json/mdi@1.2.3':
+    dependencies:
+      '@iconify/types': 2.0.0
+
   '@iconify-json/simple-icons@1.2.78':
     dependencies:
       '@iconify/types': 2.0.0
@@ -8312,14 +8322,6 @@ snapshots:
       defu: 6.1.4
     optionalDependencies:
       '@nuxt/kit': 3.21.2(magicast@0.5.2)
-      '@pinia/nuxt': 0.11.3(magicast@0.5.2)(pinia@3.0.4(typescript@6.0.2)(vue@3.5.31(typescript@6.0.2)))
-      pinia: 3.0.4(typescript@6.0.2)(vue@3.5.31(typescript@6.0.2))
-
-  pinia-plugin-persistedstate@4.7.1(@nuxt/kit@4.4.2(magicast@0.5.2))(@pinia/nuxt@0.11.3(magicast@0.5.2)(pinia@3.0.4(typescript@6.0.2)(vue@3.5.31(typescript@6.0.2))))(pinia@3.0.4(typescript@6.0.2)(vue@3.5.31(typescript@6.0.2))):
-    dependencies:
-      defu: 6.1.4
-    optionalDependencies:
-      '@nuxt/kit': 4.4.2(magicast@0.5.2)
       '@pinia/nuxt': 0.11.3(magicast@0.5.2)(pinia@3.0.4(typescript@6.0.2)(vue@3.5.31(typescript@6.0.2)))
       pinia: 3.0.4(typescript@6.0.2)(vue@3.5.31(typescript@6.0.2))
 
